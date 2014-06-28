@@ -1,0 +1,19 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  host: localhost
+  username: <%= Rails.application.secrets.database_username %>
+
+development:
+  <<: *defaults
+  database: device-management-development
+
+test:
+  <<: *defaults
+  database: device-management-test
+
+production:
+  <<: *defaults
+  database: device-management-production

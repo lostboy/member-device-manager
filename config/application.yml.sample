@@ -1,0 +1,12 @@
+common: &common
+  DATABASE_USERNAME: <%= ENV["USER"] %>
+
+test:
+  <<: *common
+  DEVISE_SECRET: super-secret
+  SECRET_KEY_BASE: maybe-even-more-secret
+
+development:
+  <<: *common
+  DEVISE_SECRET: super-secret
+  SECRET_KEY_BASE: maybe-even-more-secret

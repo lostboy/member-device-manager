@@ -14,17 +14,39 @@
 
 http://nvie.com/posts/a-successful-git-branching-model/
 
+### Configuration
+
+Make sure you have your Figaro configuration correctly set up. Here's a sample
+setup:
+
+```yml
+common: &common
+  DATABASE_USERNAME: me
+
+test:
+  <<: *common
+  DEVISE_SECRET: super-secret
+  SECRET_KEY_BASE: maybe-even-more-secret
+
+development:
+  <<: *common
+  DEVISE_SECRET: super-secret
+  SECRET_KEY_BASE: maybe-even-more-secret
+```
+
 ### Database initialization
 
     $ rake db:migrate
     $ rake db:setup
 
 
-### Run development server
+### Server
 
-    $ rails server
+With a correct setup, start the server.
+
+    $ bin/rails server
 
 
-## Specs using RSpec and Guard
+### Specs using RSpec and Guard
 
     $ bundle exec guard
