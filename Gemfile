@@ -65,6 +65,12 @@ gem 'bourbon'
 # A scheduler process
 gem 'clockwork'
 
+# Use unicorn as the app server
+gem 'unicorn'
+
+# unicorn-rails overrides the Rack::Handler.default method to return Rack::Handler::Unicorn which will cause rack (and rails) to use unicorn by default.
+gem "unicorn-rails"
+
 group :test do
   # Simple testing of Sidekiq jobs
   gem 'rspec-sidekiq'
@@ -103,12 +109,6 @@ group :test, :development do
 end
 
 group :staging, :production do
-  # An HTTP server for Rack applications
-  gem 'unicorn'
-
-  # Use Unicorn as the default Rails server
-  gem 'unicorn-rails'
-
   # Use ngmin in the Rails asset pipeline
   gem 'ngmin-rails'
 end

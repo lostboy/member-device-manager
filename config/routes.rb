@@ -1,9 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :users, ActiveAdmin::Devise.config
+  devise_for :admin_users, ActiveAdmin::Devise.config
 
-  authenticate :user, ->(user) { Ability.new(user).can? :read, :sidekiq } do
+  authenticate :admin_user, ->(user) { Ability.new(user).can? :read, :sidekiq } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
