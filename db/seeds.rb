@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require "#{Rails.root}/db/seeds/#{Rails.env}"
+
+AdminUser.create email: "admin@hubud.org", password: "password"
