@@ -6,13 +6,11 @@ class Nexudus::Import::Spaces::CoworkerClient
   format :json
 
   def initialize
-    # TODO: Get the datetime of the last update, and only ask for coworkers
-    # that has been updated/created since then.
-    # ?from_Coworker_UpdatedOn=2012-10-08T23:13:38Z
-    @params = { query: {} }
+    @params = {}
   end
 
-  def coworkers
-    self.class.get("/spaces/coworkers", @params)
+  def coworkers(options={})
+    options.merge! @params
+    self.class.get("/spaces/coworkers", options)
   end
 end
