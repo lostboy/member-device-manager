@@ -1,4 +1,4 @@
-ActiveAdmin.register AdminUser do
+ActiveAdmin.register AdminUser, as: 'Admin' do
   index do
     selectable_column
     id_column
