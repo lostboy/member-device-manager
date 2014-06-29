@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-describe User do
+describe Devices::Device do
 end
