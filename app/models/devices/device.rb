@@ -1,4 +1,5 @@
 class Devices::Device < ActiveRecord::Base
+  belongs_to :user
   belongs_to :type, class_name: 'Devices::Type'
 
   validates :type, presence: true
