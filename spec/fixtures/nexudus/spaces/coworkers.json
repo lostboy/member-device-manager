@@ -1,0 +1,52 @@
+{
+  "Records": [
+    {
+      "TariffId": 123456,
+      "NextTariffId": 123456,
+      "FullName": "John",
+      "Salutation": "Doe",
+      "Email": "john@hubud.org",
+      "CountryId": 123456,
+      "SimpleTimeZoneId": 123456,
+      "InvoicingBusinessId": 123456,
+      "BillingSimpleTimeZoneId": 123456,
+      "UserId": 123456,
+      "Active": true,
+      "NextInvoice": null,
+      "UpdatedOn": "2010-09-16T03:05:32",
+      "CreatedOn": "2010-08-31T13:45:29",
+      "UniqueId": "a7399f21-8a5a-4837-a200-a44131ec50b3",
+      "UpdatedBy": "user@example.com"
+    },
+    {
+      "TariffId": 223456,
+      "NextTariffId": 223456,
+      "FullName": "Jane",
+      "Salutation": "Doe",
+      "Email": "jane@hubud.org",
+      "CountryId": 123456,
+      "SimpleTimeZoneId": 123456,
+      "InvoicingBusinessId": 123456,
+      "BillingSimpleTimeZoneId": 123456,
+      "UserId": 223456,
+      "Active": true,
+      "NextInvoice": null,
+      "UpdatedOn": "2010-09-16T03:05:32",
+      "CreatedOn": "2010-08-31T13:45:29",
+      "UniqueId": "b7399f21-8a5a-4837-a200-a44131ec50b3",
+      "UpdatedBy": "user@example.com"
+    }
+  ],
+  "CurrentPageSize": 25,
+  "CurrentPage": 1,
+  "CurrentOrderField": "Id",
+  "CurrentSortDirection": 1,
+  "FirstItem": 1,
+  "HasNextPage": true,
+  "HasPreviousPage": false,
+  "LastItem": 1,
+  "PageNumber": 1,
+  "PageSize": 25,
+  "TotalItems": 45,
+  "TotalPages": 2
+}
