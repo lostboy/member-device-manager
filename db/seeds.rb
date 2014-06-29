@@ -1,9 +1,42 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 require "#{Rails.root}/db/seeds/#{Rails.env}"
+
+[
+  {
+    name: 'Mac WiFi',
+    kind: 'MacWiFi',
+  },
+  {
+    name: 'Mac Ethernet',
+    kind: 'MacEthernet',
+  },
+  {
+    name: 'PC WiFi',
+    kind: 'PCWiFi',
+  },
+  {
+    name: 'PC Ethernet',
+    kind: 'PCEthernet',
+  },
+  {
+    name: 'Phone',
+    kind: 'Phone',
+  },
+  {
+    name: 'Tablet or Pad',
+    kind: 'Tablet',
+  },
+  {
+    name: 'Other Device',
+    kind: 'OtherBam',
+  },
+  {
+    name: 'Other Computer',
+    kind: 'OtherMem',
+  },
+  {
+    name: 'PT Green Homes',
+    kind: 'PTG',
+  }
+].each do |kind|
+  Devices::Type.create! kind
+end
