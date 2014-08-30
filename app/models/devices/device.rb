@@ -4,5 +4,5 @@ class Devices::Device < ActiveRecord::Base
 
   validates :user, presence: true
   validates :type, presence: true
-  validates :mac_address, presence: true
+  validates :mac_address, presence: true, mac_address: true
 end
