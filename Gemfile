@@ -11,6 +11,9 @@ gem 'pg'
 # Makes http fun
 gem 'httparty'
 
+# Instant CSV support for Rails
+gem 'as_csv'
+
 # Sass adapter for the Rails asset pipeline
 gem 'sass-rails', '~> 4.0.3'
 
