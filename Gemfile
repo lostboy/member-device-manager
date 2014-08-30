@@ -76,7 +76,7 @@ gem "unicorn-rails"
 
 group :test do
   # Simple testing of Sidekiq jobs
-  gem 'rspec-sidekiq'
+  #gem 'rspec-sidekiq'
 end
 
 group :test, :development do
@@ -87,7 +87,7 @@ group :test, :development do
   gem 'whiny_validation'
 
   # RSpec for Rails
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0.0'
 
   # RSpec command for Spring
   gem 'spring-commands-rspec'
