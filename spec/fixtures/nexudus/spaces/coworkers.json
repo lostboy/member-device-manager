@@ -3,8 +3,8 @@
     {
       "TariffId": 123456,
       "NextTariffId": 123456,
-      "FullName": "John",
-      "Salutation": "Doe",
+      "FullName": "John Doe",
+      "Salutation": "Mr.",
       "Email": "john@hubud.org",
       "CountryId": 123456,
       "SimpleTimeZoneId": 123456,
@@ -21,8 +21,8 @@
     {
       "TariffId": 223456,
       "NextTariffId": 223456,
-      "FullName": "Jane",
-      "Salutation": "Doe",
+      "FullName": "Jane Doe",
+      "Salutation": "Ms.",
       "Email": "jane@hubud.org",
       "CountryId": 123456,
       "SimpleTimeZoneId": 123456,
