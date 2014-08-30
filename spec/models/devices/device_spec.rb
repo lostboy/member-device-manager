@@ -13,7 +13,7 @@ describe Devices::Device do
     end
 
     context 'is invalid' do
-      before { subject.mac_address = "0:00:2b:01:02:03"  }
+      before { subject.mac_address = "0Z:00:2b:01:02:03"  }
       it "fails validation" do
         subject.valid?
         expect(subject.errors[:mac_address].size).to eq(1)
