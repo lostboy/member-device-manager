@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   ActiveAdmin.routes self
+
+  resources :users, only: %i(index)
 end

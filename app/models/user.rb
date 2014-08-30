@@ -23,4 +23,15 @@ class User < ActiveRecord::Base
   def to_s
     self.full_name
   end
+
+  def as_csv(options={})
+    {
+      'First'             => first_name,
+      'Last'              => last_name,
+      'email'             => email,
+      'membership level'  => nil,
+      'renewal date'      => nil,
+      'membership status' => nil
+    }
+  end
 end
