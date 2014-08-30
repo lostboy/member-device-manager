@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
       'First'             => first_name,
       'Last'              => last_name,
       'email'             => email,
-      'membership level'  => nil,
-      'renewal date'      => nil,
-      'membership status' => nil
+      'membership level'  => membership_level,
+      'renewal date'      => membership_renewal_date,
+      'membership status' => membership_status
     }
   end
 end
