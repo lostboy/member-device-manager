@@ -26,20 +26,36 @@ class Nexudus::Import::Spaces::Coworker
       params = nil
     end
 
-    @client.coworkers(params)['Records'].each.map do |coworker|
-      user = User.find_or_initialize_by nexudus_id: coworker['UniqueId']
+    # The api is paginated, so we need to loop through all pages
+    complete = false
+    until complete
+      response = @client.coworkers(params)
+      response['Records'].each.map do |coworker|
+        user = User.find_or_initialize_by nexudus_id: coworker['UniqueId']
 
-      user.first_name, user.last_name = coworker['FullName'].split(" ", 2)
-      user.email                      = coworker['Email']
-      user.nexudus_user_id            = coworker['UserID']
-      user.nexudus_updated_at         = coworker['UpdatedOn']
-      user.nexudus_created_at         = coworker['CreatedOn']
-      #user.membership_level           = coworker['']
-      #user.membership_status          = coworker['']
-      user.active                     = coworker['Active']
+        user.first_name, user.last_name = coworker['FullName'].split(" ", 2)
+        user.email                      = coworker['Email']
+        user.nexudus_user_id            = coworker['UserID']
+        user.nexudus_updated_at         = coworker['UpdatedOn']
+        user.nexudus_created_at         = coworker['CreatedOn']
+        #user.membership_level           = coworker['']
+        #user.membership_renewal_date    = coworker['']
+        #user.membership_status          = coworker['']
+        user.active                     = coworker['Active']
 
-      user.save!
-      user
+        user.save!
+        user
+      end
+
+      currentPage = response['CurrentPage']
+      totalPages = response['TotalPages']
+
+      if currentPage == totalPages
+        complete = true
+      else
+        nextPage = currentPage += 1
+        { 'page' => nextPage }.merge! params || {}
+      end
     end
   end
 end

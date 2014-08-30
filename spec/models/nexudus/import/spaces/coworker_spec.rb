@@ -14,10 +14,11 @@ describe Nexudus::Import::Spaces::Coworker do
   end
 
   describe "#update" do
-    let(:response) { ActiveSupport::JSON.decode(fixture('/nexudus/spaces/coworkers.json')) }
+    let(:page1) { ActiveSupport::JSON.decode(fixture('/nexudus/spaces/coworkers_1.json')) }
+    let(:page2) { ActiveSupport::JSON.decode(fixture('/nexudus/spaces/coworkers_2.json')) }
 
     before do
-      allow_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers).and_return response
+      allow_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers).and_return(page1, page2)
     end
 
     context 'users in database' do
@@ -26,7 +27,7 @@ describe Nexudus::Import::Spaces::Coworker do
       it "fetches the coworkers" do
         expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers)
           .with({ 'from_Coworker_UpdatedOn' => user.nexudus_updated_at.iso8601 })
-          .and_return response
+          .and_return(page1, page2)
 
         subject.update
       end
@@ -36,7 +37,7 @@ describe Nexudus::Import::Spaces::Coworker do
       it "fetches the coworkers" do
         expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers)
           .with(nil)
-          .and_return response
+          .and_return(page1, page2)
 
         subject.update
       end
