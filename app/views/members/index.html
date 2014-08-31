@@ -1,5 +1,8 @@
 <h1 class="page-header">Members</h1>
 
+<label for="search">Search:</label>
+<input id="search" ng-model="search"></input>
+
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -12,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="member in members">
+      <tr ng-repeat="member in members | filter:search">
         <td>{{ member.first_name }}</td>
         <td>{{ member.last_name }}</td>
         <td>{{ member.email }}</td>
