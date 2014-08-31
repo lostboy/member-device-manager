@@ -10,7 +10,7 @@
 #
 # When they update, trigger router update (delete/add)
 
-class User < ActiveRecord::Base
+class Member < ActiveRecord::Base
   has_many :devices, class_name: 'Devices::Device'
 
   validates :email, presence: true, uniqueness: true, email: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830093248) do
+ActiveRecord::Schema.define(version: 20140831063907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20140830093248) do
     t.integer  "type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "member_id"
   end
 
   add_index "devices_devices", ["mac_address"], name: "index_devices_devices_on_mac_address", using: :btree
+  add_index "devices_devices", ["member_id"], name: "index_devices_devices_on_member_id", using: :btree
   add_index "devices_devices", ["type_id"], name: "index_devices_devices_on_type_id", using: :btree
-  add_index "devices_devices", ["user_id"], name: "index_devices_devices_on_user_id", using: :btree
 
   create_table "devices_types", force: true do |t|
     t.string   "name"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20140830093248) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "members", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 20140830093248) do
     t.datetime "membership_renewal_date"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["nexudus_id"], name: "index_users_on_nexudus_id", using: :btree
-  add_index "users", ["nexudus_updated_at"], name: "index_users_on_nexudus_updated_at", using: :btree
+  add_index "members", ["email"], name: "index_members_on_email", using: :btree
+  add_index "members", ["nexudus_id"], name: "index_members_on_nexudus_id", using: :btree
+  add_index "members", ["nexudus_updated_at"], name: "index_members_on_nexudus_updated_at", using: :btree
 
 end

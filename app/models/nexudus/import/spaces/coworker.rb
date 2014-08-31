@@ -7,13 +7,13 @@ class Nexudus::Import::Spaces::Coworker
     @client = Nexudus::Import::Spaces::CoworkerClient.new
   end
 
-  # Updates users with data from the Nexudus API
+  # Updates members with data from the Nexudus API
   #
-  # If we have some users in the database, only ask for coworkers updated since
-  # the last updated user in the database.
+  # If we have some members in the database, only ask for coworkers updated since
+  # the last updated members in the database.
   def update
-    if User.count > 0
-      timestamp = User
+    if Member.count > 0
+      timestamp = Member
         .select(:nexudus_updated_at)
         .order(nexudus_updated_at: :desc)
         .first
@@ -31,20 +31,20 @@ class Nexudus::Import::Spaces::Coworker
     until complete
       response = @client.coworkers(params)
       response['Records'].each.map do |coworker|
-        user = User.find_or_initialize_by nexudus_id: coworker['UniqueId']
+        member = Member.find_or_initialize_by nexudus_id: coworker['UniqueId']
 
-        user.first_name, user.last_name = coworker['FullName'].split(" ", 2)
-        user.email                      = coworker['Email']
-        user.nexudus_user_id            = coworker['UserID']
-        user.nexudus_updated_at         = coworker['UpdatedOn']
-        user.nexudus_created_at         = coworker['CreatedOn']
-        #user.membership_level           = coworker['']
-        #user.membership_renewal_date    = coworker['']
-        #user.membership_status          = coworker['']
-        user.active                     = coworker['Active']
+        member.first_name, member.last_name = coworker['FullName'].split(" ", 2)
+        member.email                      = coworker['Email']
+        member.nexudus_user_id            = coworker['UserID']
+        member.nexudus_updated_at         = coworker['UpdatedOn']
+        member.nexudus_created_at         = coworker['CreatedOn']
+        #member.membership_level           = coworker['']
+        #member.membership_renewal_date    = coworker['']
+        #member.membership_status          = coworker['']
+        member.active                     = coworker['Active']
 
-        user.save!
-        user
+        member.save!
+        member
       end
 
       currentPage = response['CurrentPage']

@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-describe User do
-  subject(:user) { build :user }
+describe Member do
+  subject(:member) { build :member }
 
   describe '#full_name' do
     it 'returns the full name' do
-      expect(user.full_name)
-        .to eq("#{user.first_name} #{user.last_name}")
+      expect(member.full_name)
+        .to eq("#{member.first_name} #{member.last_name}")
     end
   end
 
   describe '#to_s' do
     it 'returns the full name' do
-      expect(user.to_s).to eq(user.full_name)
+      expect(member.to_s).to eq(member.full_name)
     end
   end
 

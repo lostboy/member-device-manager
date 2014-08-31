@@ -21,19 +21,19 @@ describe Nexudus::Import::Spaces::Coworker do
       allow_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers).and_return(page1, page2)
     end
 
-    context 'users in database' do
-      let(:user) { create :user }
+    context 'members in database' do
+      let(:member) { create :member }
 
       it "fetches the coworkers" do
         expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers)
-          .with({ 'from_Coworker_UpdatedOn' => user.nexudus_updated_at.iso8601 })
+          .with({ 'from_Coworker_UpdatedOn' => member.nexudus_updated_at.iso8601 })
           .and_return(page1, page2)
 
         subject.update
       end
     end
 
-    context 'no users in db' do
+    context 'no members in db' do
       it "fetches the coworkers" do
         expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers)
           .with(nil)
@@ -44,7 +44,7 @@ describe Nexudus::Import::Spaces::Coworker do
     end
 
     it "adds new coworkers" do
-      expect { subject.update }.to change(User, :count).by 2
+      expect { subject.update }.to change(Member, :count).by 2
     end
   end
 end
