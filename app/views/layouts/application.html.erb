@@ -41,10 +41,11 @@
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarCtrl">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview</a></li>
-            <li><a href="#">Members</a></li>
+            <li ng-repeat="item in menuItems" ui-sref="{{ item.state }}" ui-sref-active="active">
+              <a>{{ item.text }}</a>
+            </li>
           </ul>
         </div>
 

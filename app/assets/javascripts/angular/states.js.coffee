@@ -8,4 +8,9 @@ angular.module("hubud")
         templateUrl: "/?format=html"
         controller: 'DashboardCtrl'
 
+      .state "members",
+        url: "/members"
+        templateUrl: "/members.html"
+        controller: 'MembersCtrl'
+
     $urlRouterProvider.otherwise "/"
