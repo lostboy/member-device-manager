@@ -11,4 +11,8 @@ Rails.application.routes.draw do
 
   root 'home#dashboard'
   resources :members, only: %i(index show update)
+
+  namespace 'devices' do
+    resources :types, only: %i(index)
+  end
 end
