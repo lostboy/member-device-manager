@@ -16,29 +16,17 @@ describe Member do
     end
   end
 
-  describe '.email' do
-    context 'is valid' do
-      before { subject.email = "valid@email.com"  }
-      it "passes validation" do
-        subject.valid?
-        expect(subject.errors[:email].size).to eq(0)
-      end
+  describe 'is_valid?' do
+    it 'should have a valid factory' do
+      expect(build :member).to be_valid
     end
 
-    context 'is invalid' do
-      before { subject.email = "invalid-email"  }
-      it "fails validation" do
-        subject.valid?
-        expect(subject.errors[:email].size).to eq(1)
-      end
+    it 'should require an email' do
+      expect(build :member, email: nil).not_to be_valid
     end
 
-    context 'is missing' do
-      before { subject.email = nil }
-      it "fails validation" do
-        subject.valid?
-        expect(subject.errors[:email].size).to eq(2)
-      end
+    it 'should require a correct email' do
+      expect(build :member, email: 'foo').not_to be_valid
     end
   end
 
