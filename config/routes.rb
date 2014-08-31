@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes self
 
+  root 'home#dashboard'
   resources :users, only: %i(index)
 end

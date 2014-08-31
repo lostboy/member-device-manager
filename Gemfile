@@ -32,8 +32,11 @@ gem 'angularjs-rails'
 # Lo-Dash for the Rails asset pipeline
 gem 'lodash-rails'
 
-# Build JSON APIs with ease
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+
+# Serialize JSON with OJ
+gem 'oj'
 
 # Use Pry as your rails console
 gem 'pry-rails'
