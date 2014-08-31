@@ -38,3 +38,9 @@ angular.module("hubud")
           "Content-Type": "application/x-www-form-urlencoded"
       ).success (data, status, headers, config) ->
         console.log "Success!"
+
+        # Remove all devices that we have deleted, this is important
+        # so that we don't try to remove the device again.
+        _.remove($scope.member.devices, (device) ->
+          device.destroy
+        )

@@ -11,9 +11,17 @@
   <button ng-click="addDevice()" class="btn btn-default">Add</button>
 </h2>
 
-<form ng-submit="submit()" class="form-inline" role="form">
+<form class="form-inline" role="form">
 
-  <div class="row" ng-repeat="device in member.devices">
+  <div class="row" ng-if="!device.destroy" ng-repeat="device in member.devices">
+    <div class="form-group">
+      <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
+      <button
+        ng-click="device.destroy = true"
+        class="btn btn-danger">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
 
     <div class="form-group">
       <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
@@ -38,5 +46,5 @@
 
   </div>
 
-  <button type="submit" class="btn btn-default">Save</button>
+  <button ng-click="submit()" type="submit" class="btn btn-default">Save</button>
 </form>
