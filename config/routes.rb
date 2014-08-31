@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   ActiveAdmin.routes self
 
   root 'home#dashboard'
-  resources :members, only: %i(index show)
+  resources :members, only: %i(index show update)
 end

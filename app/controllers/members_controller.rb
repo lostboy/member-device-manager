@@ -13,4 +13,25 @@ class MembersController < ApplicationController
     respond_with @member
   end
 
+  def update
+    @member = Member.find params[:id]
+
+    if @member.update_attributes! member_params
+      head :ok
+    else
+      render json: @member.errors, status: :unprocessable_entity
+    end
+  end
+
+  private
+  def member_params
+    params
+      .require(:member)
+      .permit(
+        :first_name,
+        :last_name,
+        :email,
+        devices_attributes: [:id, :name, :mac_address, :type_id, :_destroy],
+      )
+  end
 end
