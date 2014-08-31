@@ -8,4 +8,9 @@ class MembersController < ApplicationController
     respond_with @members
   end
 
+  def show
+    @member = Member.find params[:id]
+    respond_with @member
+  end
+
 end

@@ -15,4 +15,18 @@ describe MembersController do
       expect(assigns(:members)).to eq([member])
     end
   end
+
+  describe 'GET #show' do
+    let!(:member) { create :member }
+
+    it 'responds succesfully' do
+      get :show, id: member.to_param
+      expect(response).to be_success
+    end
+
+    it "assigns @member" do
+      get :show, id: member.to_param
+      expect(assigns(:member)).to eq(member)
+    end
+  end
 end

@@ -13,4 +13,10 @@ angular.module("hubud")
         templateUrl: "/members.html"
         controller: 'MembersCtrl'
 
+      .state "member",
+        url: "/members/:id"
+        templateUrl: (params) ->
+          "/members/#{params.id}.html"
+        controller: 'MemberCtrl'
+
     $urlRouterProvider.otherwise "/"
