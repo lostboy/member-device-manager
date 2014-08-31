@@ -1,1 +1,26 @@
 <h1 class="page-header">Members</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="member in members">
+        <td>{{ member.first_name }}</td>
+        <td>{{ member.last_name }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.membership_status }}</td>
+        <td>
+          <a ui-sref="member({id: member.id})">View</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
