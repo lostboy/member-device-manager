@@ -1,50 +1,85 @@
-<h1 class="page-header">{{ member.first_name }} {{ member.last_name }}</h1>
-<ul>
-  <li>Email: {{ member.email }}</li>
-  <li>Membership level: {{ member.membership_level }}</li>
-  <li>Membership status: {{ member.membership_status }}</li>
-  <li>Membership renewal date: {{ member.membership_renewal_date }}</li>
-</ul>
+<ol class="breadcrumb">
+  <li><a ui-sref="dashboard">Dashboard</a></li>
+  <li><a ui-sref="members">Members</a></li>
+  <li class="active">{{ member.full_name }}</li>
+</ol>
 
-<h2 class="sub-header">
-  Devices
-  <button ng-click="addDevice()" class="btn btn-default">Add</button>
-</h2>
-
-<form class="form-inline" role="form">
-
-  <div class="row" ng-if="!device.destroy" ng-repeat="device in member.devices">
-    <div class="form-group">
-      <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
-      <button
-        ng-click="device.destroy = true"
-        class="btn btn-danger">
-        <span class="glyphicon glyphicon-remove"></span>
-      </button>
-    </div>
-
-    <div class="form-group">
-      <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
-      <input
-        ng-model="device.mac_address"
-        placeholder="Enter MAC Address"
-        type="text"
-        id="mac_address_{{ $index }}"
-        class="form-control">
-    </div>
-
-    <div class="form-group">
-      <label class="sr-only" for="device_type_{{ $index }}">Type</label>
-      <select
-        ng-required
-        ng-model="device.type_id"
-        ng-options="type.id as type.name for type in deviceTypes"
-        id="device_type_{{ $index }}"
-        class="form-control">
-      </select>
-    </div>
-
+<h1 class="page-header">{{ member.full_name }}</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Member details</h3>
   </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td class="definition">Email</td>
+        <td>{{ member.email }}</td>
+      </tr>
 
-  <button ng-click="submit()" type="submit" class="btn btn-default">Save</button>
-</form>
+      <tr>
+        <td class="definition">Membership level</td>
+        <td>{{ member.membership_level }}</td>
+      </tr>
+
+      <tr>
+        <td class="definition">Membership status</td>
+        <td>{{ member.membership_status }}</td>
+      </tr>
+
+      <tr>
+        <td class="definition">Membership renewal date</td>
+        <td>{{ member.membership_renewal_date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="devices">
+  <h2 class="sub-header">
+    Devices
+    <button ng-click="addDevice()" class="btn btn-primary pull-right">Add</button>
+  </h2>
+
+  <form class="form-inline" role="form">
+
+    <div class="device row" ng-if="!device.destroy" ng-repeat="device in member.devices">
+      <div class="container-fluid">
+        <div class="form-group">
+          <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
+          <button
+            ng-click="device.destroy = true"
+            class="btn btn-danger">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
+          <input
+            ng-model="device.mac_address"
+            placeholder="Enter MAC Address"
+            type="text"
+            id="mac_address_{{ $index }}"
+            class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label class="sr-only" for="device_type_{{ $index }}">Type</label>
+          <select
+            ng-required
+            ng-model="device.type_id"
+            ng-options="type.id as type.name for type in deviceTypes"
+            id="device_type_{{ $index }}"
+            class="form-control">
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer row">
+      <div class="container-fluid">
+        <button ng-click="submit()" type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </form>
+</div>
