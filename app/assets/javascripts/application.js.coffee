@@ -7,6 +7,7 @@
 #= require angular-touch
 #= require angular-sanitize
 #= require angular-ui-router
+#= require angular-hotkeys
 #= require restangular.js
 #= require bootstrap/ui-bootstrap-tpls-0.11.0
 #= require angular/setup

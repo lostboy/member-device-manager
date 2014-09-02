@@ -1,5 +1,5 @@
 angular.module("hubud")
-  .controller "MemberCtrl", ($scope, $state, $http, Restangular) ->
+  .controller "MemberCtrl", ($scope, $state, $http, Restangular, hotkeys, $timeout) ->
 
     Restangular.one("members", $state.params.id).get().then (response) ->
       $scope.member = response
@@ -44,3 +44,21 @@ angular.module("hubud")
         _.remove($scope.member.devices, (device) ->
           device.destroy
         )
+
+    # Bind hotkeys
+    hotkeys.bindTo($scope)
+      .add
+        combo: 'a'
+        description: 'Add a new device'
+        callback: (event, callback) ->
+          $scope.addDevice()
+          event.preventDefault()
+          $timeout ->
+            $(".mac_address").last().focus()
+          , 10
+      .add
+        combo: 'ctrl+s'
+        description: 'Save changes to member'
+        callback: (event, callback) ->
+          $scope.submit()
+          event.preventDefault()

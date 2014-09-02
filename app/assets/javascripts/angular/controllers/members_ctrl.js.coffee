@@ -1,5 +1,5 @@
 angular.module("hubud")
-  .controller "MembersCtrl", ($scope, Restangular, $timeout) ->
+  .controller "MembersCtrl", ($scope, Restangular, $timeout, hotkeys) ->
 
     fetchMembers = ->
       console.log "Update members"
@@ -10,3 +10,12 @@ angular.module("hubud")
         $timeout fetchMembers, 5000
 
     fetchMembers()
+
+    # Bind hotkeys
+    hotkeys.bindTo($scope)
+      .add
+        combo: '/'
+        description: 'Focus on the search field'
+        callback: (event, callback) ->
+          $("#member-search").focus()
+          event.preventDefault()

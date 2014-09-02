@@ -4,7 +4,8 @@ angular.module "hubud", [
   "ngSanitize",
   "ui.router",
   "restangular",
-  "ui.bootstrap"
+  "ui.bootstrap",
+  "cfp.hotkeys"
 ]
 
 angular.module("hubud")

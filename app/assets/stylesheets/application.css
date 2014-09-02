@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require bootstrap/bootstrap
+ *= require angular-hotkeys
  *= require_tree .
  *= require_self
  */
