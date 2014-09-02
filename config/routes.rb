@@ -9,5 +9,10 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes self
 
-  resources :users, only: %i(index)
+  root 'home#dashboard'
+  resources :members, only: %i(index show update)
+
+  namespace 'devices' do
+    resources :types, only: %i(index)
+  end
 end
