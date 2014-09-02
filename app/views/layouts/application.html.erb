@@ -30,8 +30,10 @@
 
         <div collapse="isCollapsed" class="navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Help</a></li>
+            <li ng-if="!isCollapsed" ng-repeat="item in menuItems" ui-sref="{{ item.state }}" ui-sref-active="active">
+              <a>{{ item.text }}</a>
+            </li>
+            <li><a>Help</a></li>
           </ul>
         </div>
 

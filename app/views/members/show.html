@@ -34,30 +34,24 @@
   </table>
 </div>
 
-<div class="devices">
+<div class="devices container-fluid">
   <h2 class="sub-header">
     Devices
     <button ng-click="addDevice()" class="btn btn-primary pull-right">Add</button>
   </h2>
 
-  <form class="form-inline" role="form">
+  <form novalidate class="form-inline" role="form">
 
-    <div class="device row" ng-if="!device.destroy" ng-repeat="device in member.devices">
+    <div class="device row well" ng-if="!device.destroy" ng-repeat="device in member.devices">
       <div class="container-fluid">
-        <div class="form-group">
-          <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
-          <button
-            ng-click="device.destroy = true"
-            class="btn btn-danger">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
-        </div>
-
         <div class="form-group">
           <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
           <input
             ng-model="device.mac_address"
             placeholder="Enter MAC Address"
+            ng-minlength=12
+            ng-maxlength=17
+            ng-pattern="/^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/i"
             type="text"
             id="mac_address_{{ $index }}"
             class="form-control">
@@ -73,13 +67,24 @@
             class="form-control">
           </select>
         </div>
+
+        <div class="form-group pull-right">
+          <label class="sr-only" for="mac_address_{{ $index }}">MAC Address</label>
+          <button
+            ng-click="device.destroy = true"
+            class="btn btn-danger">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+
       </div>
     </div>
 
-    <div class="footer row">
-      <div class="container-fluid">
-        <button ng-click="submit()" type="submit" class="btn btn-primary">Save</button>
-      </div>
-    </div>
   </form>
+</div>
+
+<div class="footer">
+  <div class="container-fluid well">
+    <button ng-click="submit()" type="submit" class="btn btn-primary pull-right">Save</button>
+  </div>
 </div>
