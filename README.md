@@ -1,5 +1,8 @@
 # Hubud - Device manager
 
+[![Build Status](https://img.shields.io/travis/hubud/member-device-manager/develop.svg)](https://travis-ci.org/hubud/member-device-manager)
+[![Dependency Status](https://img.shields.io/gemnasium/hubud/member-device-manager.svg)](https://gemnasium.com/hubud/member-device-manager)
+[![Code Climate](https://img.shields.io/codeclimate/github/hubud/member-device-manager.svg)](https://codeclimate.com/github/hubud/member-device-manager)
 
 ## Requirements
 
