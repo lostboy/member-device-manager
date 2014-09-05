@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 
 # Ruby on Rails is a full-stack web framework
-gem 'rails', '4.1.0'
+gem 'rails', '~> 4.1.0'
 
 # Pg is the Ruby interface to the PostgreSQL RDBMS
 gem 'pg'
