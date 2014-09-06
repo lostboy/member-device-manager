@@ -80,6 +80,10 @@ gem "unicorn-rails"
 # A Ruby implementation of the Coveralls API.
 gem 'coveralls'
 
+# Collects test coverage data from your Ruby test suite and sends it to Code Climate's
+# hosted, automated code review service.
+gem 'codeclimate-test-reporter'
+
 group :test do
   # Simple testing of Sidekiq jobs
   #gem 'rspec-sidekiq'
