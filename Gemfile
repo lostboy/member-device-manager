@@ -77,6 +77,9 @@ gem 'unicorn'
 # unicorn-rails overrides the Rack::Handler.default method to return Rack::Handler::Unicorn which will cause rack (and rails) to use unicorn by default.
 gem "unicorn-rails"
 
+# A Ruby implementation of the Coveralls API.
+gem 'coveralls'
+
 group :test do
   # Simple testing of Sidekiq jobs
   #gem 'rspec-sidekiq'
