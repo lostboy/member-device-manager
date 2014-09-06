@@ -18,24 +18,21 @@ class Nexudus::Import::Spaces::Coworker
     end
 
     # The api is paginated, so we need to loop through all pages
-    complete = false
-    until complete
+    loop do
       # Fetch coworkers
       response = @client.coworkers(params)
 
       # Import coworkers
       import response['Records']
 
-      # Handle pagination
       currentPage = response['CurrentPage']
       totalPages = response['TotalPages']
 
-      if currentPage == totalPages
-        complete = true
-      else
-        nextPage = currentPage += 1
-        { 'page' => nextPage }.merge! params || {}
-      end
+      # Update page attribute in params to ask for next page
+      { page: currentPage + 1 }.merge! params || {}
+
+      # If we are on last page, break out of loop
+      break if currentPage >= totalPages
     end
   end
 
