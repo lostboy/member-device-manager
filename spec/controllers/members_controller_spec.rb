@@ -65,6 +65,13 @@ RSpec.describe MembersController, type: :controller do
 
       expect { update_member(data: data)}.to change(member.devices, :count).by 2
     end
+
+    context 'bad request' do
+      it 'returns unprocessable_entity' do
+        update_member data: { email: "bar" }
+        expect(response).to have_http_status :unprocessable_entity
+      end
+    end
   end
 
 end

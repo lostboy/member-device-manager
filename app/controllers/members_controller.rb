@@ -16,7 +16,7 @@ class MembersController < ApplicationController
   def update
     @member = Member.find params[:id]
 
-    if @member.update_attributes! member_params
+    if @member.update_attributes member_params
       head :ok
     else
       render json: @member.errors, status: :unprocessable_entity
