@@ -5,7 +5,10 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
-SimpleCov.start
+SimpleCov.start 'rails' do
+  # Ignore admin configuration from coverage report.
+  add_filter "/app\/admin/"
+end
 
 RSpec.configure do |config|
   # These two settings work together to allow you to limit a spec run
