@@ -1,15 +1,5 @@
-class Nexudus::Import::Spaces::CoworkerClient
-  include HTTParty
-
-  base_uri "http://spaces.nexudus.com/api"
-  default_params output: :json
-  format :json
-
-  def initialize
-    @params = {}
-  end
-
-  def coworkers(options={})
+class Nexudus::Import::Spaces::CoworkerClient < Nexudus::Import::Client
+  def resources(options={})
     options.merge! @params
     self.class.get("/spaces/coworkers", options)
   end

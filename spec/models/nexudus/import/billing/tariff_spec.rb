@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Nexudus::Import::Billing::Tariff do
+RSpec.describe Nexudus::Import::Billing::Tariff do
   it_behaves_like "a singleton"
 
   subject { described_class.instance }
@@ -18,14 +18,14 @@ describe Nexudus::Import::Billing::Tariff do
     let(:page2) { ActiveSupport::JSON.decode(fixture('/nexudus/billing/tariffs_2.json')) }
 
     before do
-      allow_any_instance_of(Nexudus::Import::Billing::TariffClient).to receive(:tariffs).and_return(page1, page2)
+      allow_any_instance_of(Nexudus::Import::Billing::TariffClient).to receive(:resources).and_return(page1, page2)
     end
 
     context 'membership levels in database' do
       let!(:level) { create :membership_level }
 
       it "fetches the tariffs" do
-        expect_any_instance_of(Nexudus::Import::Billing::TariffClient).to receive(:tariffs)
+        expect_any_instance_of(Nexudus::Import::Billing::TariffClient).to receive(:resources)
           .with({ 'from_Tariff_UpdatedOn' => level.nexudus_updated_at.iso8601 })
           .and_return(page1, page2)
 
@@ -35,7 +35,7 @@ describe Nexudus::Import::Billing::Tariff do
 
     context 'no tariffs in db' do
       it "fetches the tariffs" do
-        expect_any_instance_of(Nexudus::Import::Billing::TariffClient).to receive(:tariffs)
+        expect_any_instance_of(Nexudus::Import::Billing::TariffClient).to receive(:resources)
           .with(nil)
           .and_return(page1, page2)
 

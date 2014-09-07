@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Nexudus::Import::Spaces::Coworker do
+RSpec.describe Nexudus::Import::Spaces::Coworker do
   it_behaves_like "a singleton"
 
   subject { described_class.instance }
@@ -18,14 +18,14 @@ describe Nexudus::Import::Spaces::Coworker do
     let(:page2) { ActiveSupport::JSON.decode(fixture('/nexudus/spaces/coworkers_2.json')) }
 
     before do
-      allow_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers).and_return(page1, page2)
+      allow_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:resources).and_return(page1, page2)
     end
 
     context 'members in database' do
       let(:member) { create :member }
 
       it "fetches the coworkers" do
-        expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers)
+        expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:resources)
           .with({ 'from_Coworker_UpdatedOn' => member.nexudus_updated_at.iso8601 })
           .and_return(page1, page2)
 
@@ -35,7 +35,7 @@ describe Nexudus::Import::Spaces::Coworker do
 
     context 'no members in db' do
       it "fetches the coworkers" do
-        expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:coworkers)
+        expect_any_instance_of(Nexudus::Import::Spaces::CoworkerClient).to receive(:resources)
           .with(nil)
           .and_return(page1, page2)
 
