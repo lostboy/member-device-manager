@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907061855) do
+ActiveRecord::Schema.define(version: 20140907092133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,9 +69,11 @@ ActiveRecord::Schema.define(version: 20140907061855) do
     t.string   "membership_level"
     t.datetime "membership_renewal_date"
     t.integer  "nexudus_id"
+    t.integer  "membership_level_id"
   end
 
   add_index "members", ["email"], name: "index_members_on_email", using: :btree
+  add_index "members", ["membership_level_id"], name: "index_members_on_membership_level_id", using: :btree
   add_index "members", ["nexudus_unique_id"], name: "index_members_on_nexudus_unique_id", using: :btree
   add_index "members", ["nexudus_updated_at"], name: "index_members_on_nexudus_updated_at", using: :btree
 

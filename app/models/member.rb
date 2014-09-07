@@ -13,6 +13,8 @@
 class Member < ActiveRecord::Base
   has_many :devices, class_name: 'Devices::Device'
 
+  belongs_to :membership_level, class_name: 'Membership::Level'
+
   accepts_nested_attributes_for :devices, allow_destroy: true, reject_if: :all_blank
 
   validates :email, presence: true, uniqueness: true, email: true
