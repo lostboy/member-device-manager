@@ -27,6 +27,10 @@ class Nexudus::Import::Spaces::Coworker < Nexudus::Import::Resource
 
   # Save given coworker to the database
   def save coworker
+    # Find (or create) the correct membership level for this coworker.
+    membership_level = Membership::Level.find_or_create_by!(
+      nexudus_id: coworker['TariffId']
+    )
     member = Member.find_or_initialize_by nexudus_unique_id: coworker['UniqueId']
     member.first_name, member.last_name = coworker['FullName'].split(" ", 2)
     member.email                        = coworker['Email']
@@ -34,7 +38,7 @@ class Nexudus::Import::Spaces::Coworker < Nexudus::Import::Resource
     member.nexudus_user_id              = coworker['UserID']
     member.nexudus_updated_at           = coworker['UpdatedOn']
     member.nexudus_created_at           = coworker['CreatedOn']
-    #member.membership_level             = coworker['']
+    member.membership_level             = membership_level
     #member.membership_renewal_date      = coworker['']
     #member.membership_status            = coworker['']
     member.active                       = coworker['Active']
