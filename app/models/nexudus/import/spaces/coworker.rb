@@ -54,10 +54,11 @@ class Nexudus::Import::Spaces::Coworker
   # Save given coworkers to the database
   def import coworkers
     coworkers.each do |coworker|
-      member = Member.find_or_initialize_by nexudus_id: coworker['UniqueId']
+      member = Member.find_or_initialize_by nexudus_unique_id: coworker['UniqueId']
 
       member.first_name, member.last_name = coworker['FullName'].split(" ", 2)
       member.email                        = coworker['Email']
+      member.nexudus_id                   = coworker['Id']
       member.nexudus_user_id              = coworker['UserID']
       member.nexudus_updated_at           = coworker['UpdatedOn']
       member.nexudus_created_at           = coworker['CreatedOn']
