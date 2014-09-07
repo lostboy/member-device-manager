@@ -31,8 +31,15 @@ class Nexudus::Import::Spaces::Coworker < Nexudus::Import::Resource
     membership_level = Membership::Level.find_or_create_by!(
       nexudus_id: coworker['TariffId']
     )
+
+    # Split name into first and last names
+    names = coworker['FullName'].split(" ")
+    first_name = names[0..-2].join(" ")
+    last_name = names[-1]
+
     member = Member.find_or_initialize_by nexudus_unique_id: coworker['UniqueId']
-    member.first_name, member.last_name = coworker['FullName'].split(" ", 2)
+    member.first_name                   = first_name
+    member.last_name                    = last_name
     member.email                        = coworker['Email']
     member.nexudus_id                   = coworker['Id']
     member.nexudus_user_id              = coworker['UserID']
