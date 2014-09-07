@@ -6,6 +6,6 @@ FactoryGirl.define do
     price { Faker::Number.number(2) }
     nexudus_updated_at { 2.hours.ago }
     nexudus_created_at { 2.days.ago }
-    nexudus_id Faker::Number.number(10)
+    nexudus_id Faker::Number.number(6)
   end
 end
