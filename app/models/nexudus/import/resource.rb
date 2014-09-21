@@ -5,7 +5,6 @@ class Nexudus::Import::Resource
 
   private
 
-  # Updates members with data from the Nexudus API
   def import params
     # The api is paginated, so we need to loop through all pages
     loop do
