@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 describe Devices::Device do
-  subject(:device) { build :device }
+  let!(:membership_level) { create :membership_level, network: '10.10.2.0/24' }
+  let!(:member) { create :member, membership_level: membership_level }
+  subject(:device) { build :device, member: member }
 
   describe 'is_valid?' do
     it 'should have a valid factory' do
@@ -14,6 +16,17 @@ describe Devices::Device do
 
     it 'should require a correct mac address' do
       expect(build :device, mac_address: '0Z:00:2b:01:02:03').not_to be_valid
+    end
+  end
+
+  describe 'ip_address' do
+    before do
+      device.ip_address = '10.10.2.1/24'
+      device.save!
+    end
+
+    it 'can store ip addresses' do
+      expect(device.reload.ip_address).to eq('10.10.2.1/24')
     end
   end
 
@@ -36,4 +49,56 @@ describe Devices::Device do
       end
     end
   end
+
+  describe '#membership_network' do
+    it 'returns the correct network for this members membership level' do
+      expect(device.membership_network).to equal(membership_level.network)
+    end
+  end
+
+  describe '#renew' do
+    it "renews a device's ip address" do
+      device.renew
+      expect(device.ip_address).to eq('10.10.2.1')
+    end
+  end
+
+  describe '#renew!' do
+    context 'first device in network' do
+      it "renews and persists a device's ip address" do
+        device.renew!
+        expect(device.reload.ip_address).to eq('10.10.2.1')
+      end
+    end
+
+    context 'second device in network' do
+      before do
+        create(:device, ip_address: '10.10.2.1')
+      end
+
+      it "renews and persists a device's ip address" do
+        device.renew!
+        expect(device.reload.ip_address).to eq('10.10.2.2')
+      end
+    end
+  end
+
+  describe '#release' do
+    let!(:device) { create :device, ip_address: '10.10.2.1' }
+
+    it "releases a device's ip address" do
+      device.release
+      expect(device.ip_address).to eq(nil)
+    end
+  end
+
+  describe '#release!' do
+    let!(:device) { create :device, ip_address: '10.10.2.1' }
+
+    it "releases a device's ip address" do
+      device.release!
+      expect(device.reload.ip_address).to eq(nil)
+    end
+  end
+
 end

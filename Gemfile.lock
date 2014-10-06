@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/bluemonk/ipaddress.git
+  revision: 27a4d39661507bd068f50cc9cb3f652772ff56a3
+  specs:
+    ipaddress (0.8.0)
+
+GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: 3997f0181fc2230481bcc0f81c0f1a0a205a3abb
   specs:
@@ -320,6 +326,7 @@ DEPENDENCIES
   guard-rspec
   hirb-unicode
   httparty
+  ipaddress!
   jbuilder (~> 2.0)
   jquery-rails
   lodash-rails

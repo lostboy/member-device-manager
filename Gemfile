@@ -23,6 +23,10 @@ gem 'uglifier', '>= 1.3.0'
 # CoffeeScript adapter for the Rails asset pipeline
 gem 'coffee-rails', '~> 4.0.0'
 
+# IPAddress is a Ruby library designed to make manipulation of IPv4 and IPv6
+# addresses both powerful and simple.
+gem 'ipaddress', github: 'bluemonk/ipaddress'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 

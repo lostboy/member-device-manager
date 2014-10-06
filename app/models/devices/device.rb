@@ -15,4 +15,31 @@ class Devices::Device < ActiveRecord::Base
     else false
     end
   end
+
+  # Determine which network this device should belong to based on the
+  # members membership level.
+  def membership_network
+    try(:member).try(:membership_level).try(:network)
+  end
+
+  # Renew a devices IP address.
+  def renew
+    network = Network.new membership_network
+    self.ip_address = network.next
+  end
+
+  def renew!
+    renew
+    save!
+  end
+
+  # Release a device's IP address.
+  def release
+    self.ip_address = nil
+  end
+
+  def release!
+    release
+    save!
+  end
 end
