@@ -51,8 +51,20 @@ describe Devices::Device do
   end
 
   describe '#membership_network' do
-    it 'returns the correct network for this members membership level' do
-      expect(device.membership_network).to equal(membership_level.network)
+    context 'membership level defines a network' do
+      it 'returns the correct network for this members membership level' do
+        expect(device.membership_network).to eq(membership_level.network)
+      end
+    end
+
+    context 'membership level does not define a network' do
+      before do
+        device.member.membership_level.network = nil
+      end
+
+      it 'returns the correct network for this members membership level' do
+        expect(device.membership_network).to eq('10.10.1.0/24')
+      end
     end
   end
 
@@ -80,6 +92,10 @@ describe Devices::Device do
         device.renew!
         expect(device.reload.ip_address).to eq('10.10.2.2')
       end
+    end
+
+    context 'the network is full' do
+      it 'returns a sensible error message'
     end
   end
 
