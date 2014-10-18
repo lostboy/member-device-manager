@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907094656) do
+ActiveRecord::Schema.define(version: 20141006155230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140907094656) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "member_id"
+    t.inet     "ip_address"
   end
 
   add_index "devices_devices", ["mac_address"], name: "index_devices_devices_on_mac_address", using: :btree
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140907094656) do
     t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "hotspot"
   end
 
   create_table "members", force: true do |t|
@@ -85,6 +87,7 @@ ActiveRecord::Schema.define(version: 20140907094656) do
     t.integer  "nexudus_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "network"
   end
 
 end
