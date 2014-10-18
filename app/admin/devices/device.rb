@@ -18,14 +18,15 @@ ActiveAdmin.register Devices::Device, as: 'Device' do
     column :ip_address
     column :updated_at
     column :created_at
-    actions defaults: true do |device|
+    column :ip_address do |device|
       links = []
 
       links << link_to(I18n.t("admin.renew"), renew_admin_device_path(device.id))
       links << link_to(I18n.t("admin.release"), release_admin_device_path(device.id))
 
-      links.join(" ").html_safe
+      links.join(" | ").html_safe
     end
+    actions
   end
 
   action_item only: :show do
