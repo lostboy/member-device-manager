@@ -19,6 +19,28 @@ describe Devices::Device do
     end
   end
 
+  describe 'before_create' do
+    context 'belongs to hsv1-mem' do
+      let(:type) { create :devices_type, hotspot: 'hsv1-mem' }
+      let(:device) { build :device, type: type }
+
+      it 'assigns an ip address' do
+        device.save!
+        expect(device.reload.ip_address).not_to be_nil
+      end
+    end
+
+    context 'belongs to hsv2-bam' do
+      let(:type) { create :devices_type, hotspot: 'hsv2-bam' }
+      let(:device) { build :device, type: type }
+
+      it 'does not assign an ip address' do
+        device.save!
+        expect(device.reload.ip_address).to be_nil
+      end
+    end
+  end
+
   describe 'ip_address' do
     before do
       device.ip_address = '10.10.2.1/24'

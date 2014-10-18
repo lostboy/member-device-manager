@@ -6,6 +6,8 @@ class Devices::Device < ActiveRecord::Base
   validates :type, presence: true
   validates :mac_address, presence: true, mac_address: true
 
+  before_create :renew, if: :manage_ip?
+
   # Determine if we should manage the IP address of this device based
   # on which hotspot it belongs to.
   def manage_ip?
