@@ -11,6 +11,9 @@ gem 'pg'
 # Makes http fun
 gem 'httparty'
 
+# Net::SSH: a pure-Ruby implementation of the SSH2 client protocol.
+gem 'net-ssh', '~> 2.9.1'
+
 # Instant CSV support for Rails
 gem 'as_csv'
 
