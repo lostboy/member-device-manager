@@ -10,3 +10,6 @@ development:
   <<: *common
   DEVISE_SECRET: super-secret
   SECRET_KEY_BASE: maybe-even-more-secret
+  ROUTER_HOST: localhost
+  ROUTER_USERNAME: username
+  ROUTER_USERNAME: password
