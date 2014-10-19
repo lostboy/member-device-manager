@@ -1,16 +1,17 @@
-# TODO: Watch for updates on the following fields:
-# * first_name
-# * last_name
-# * email
-# * membership_status
-# * membership_level
-# * devices -> device_type
-# * devices -> mac_address
-# * devices -> ip_address
-#
-# When they update, trigger router update (delete/add)
-
 class Member < ActiveRecord::Base
+  ROUTER_FIELDS = [
+    :first_name,
+    :last_name,
+    :email,
+    :membership_status,
+    :membership_level_id
+  ]
+
+  # We only want to do this on update, if we do it on create we will do it
+  # twice. One time when the member gets created, and then once more when the
+  # devices themself gets created.
+  after_update :update_router, if: :router_fields_changed?
+
   has_many :devices, class_name: 'Devices::Device'
 
   belongs_to :membership_level, class_name: 'Membership::Level'
@@ -37,5 +38,18 @@ class Member < ActiveRecord::Base
       'renewal date'      => membership_renewal_date,
       'membership status' => membership_status
     }
+  end
+
+  def update_router
+    devices.each do |device|
+      device.update_router
+    end
+  end
+
+  def router_fields_changed?
+    changed_fields = self.changed.map { |field| field.to_sym }
+    ROUTER_FIELDS.map do |router_field|
+      changed_fields.include? router_field
+    end.any?
   end
 end

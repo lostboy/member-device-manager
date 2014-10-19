@@ -5,6 +5,10 @@ describe Devices::Device do
   let!(:member) { create :member, membership_level: membership_level }
   subject(:device) { build :device, member: member }
 
+  before do
+    allow_any_instance_of(Router).to receive(:ssh).and_return(true)
+  end
+
   describe 'is_valid?' do
     it 'should have a valid factory' do
       expect(build :device).to be_valid
@@ -139,4 +143,55 @@ describe Devices::Device do
     end
   end
 
+  describe "#router_fields_changed?" do
+    context "mac_address changed" do
+      before do
+        device.save!
+        device.mac_address = "60:03:08:aa:85:39"
+      end
+
+      it "determines if any of the router fields changed" do
+        expect(device.router_fields_changed?).to be true
+      end
+    end
+
+    context "noting has changed" do
+      before { device.save! }
+      it "determines if any of the router fields changed" do
+        expect(device.router_fields_changed?).to be false
+      end
+    end
+  end
+
+  describe "#after_save" do
+    before do
+      allow(device).to receive(:router_fields_changed?).and_return(true)
+    end
+
+    it "updates the router" do
+      expect(device).to receive(:update_router)
+      device.save!
+    end
+  end
+
+  describe "#update_router" do
+    it 'updates the device' do
+      expect_any_instance_of(Router).to receive(:update).with(device)
+      device.update_router
+    end
+
+    context "with disable" do
+      it 'disables the device' do
+        expect_any_instance_of(Router).to receive(:disable).with(device)
+        device.update_router disable: true
+      end
+    end
+
+    context "with enable" do
+      it 'enables the device' do
+        expect_any_instance_of(Router).to receive(:enable).with(device)
+        device.update_router enable: true
+      end
+    end
+  end
 end

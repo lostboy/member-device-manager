@@ -1,4 +1,10 @@
 class Devices::Device < ActiveRecord::Base
+  ROUTER_FIELDS = [
+    :kind,
+    :mac_address,
+    :ip_address
+  ]
+
   belongs_to :member
   belongs_to :type, class_name: 'Devices::Type'
 
@@ -7,6 +13,8 @@ class Devices::Device < ActiveRecord::Base
   validates :mac_address, presence: true, mac_address: true
 
   before_create :renew, if: :manage_ip?
+
+  after_save :update_router, if: :router_fields_changed?
 
   # Determine if we should manage the IP address of this device based
   # on which hotspot it belongs to.
@@ -45,5 +53,23 @@ class Devices::Device < ActiveRecord::Base
   def release!
     release
     save!
+  end
+
+  def update_router(disable: nil, enable: nil)
+    router = Router.new
+    if disable
+      router.disable self
+    elsif enable
+      router.enable self
+    else
+      router.update self
+    end
+  end
+
+  def router_fields_changed?
+    changed_fields = self.changed.map { |field| field.to_sym }
+    ROUTER_FIELDS.map do |router_field|
+      changed_fields.include? router_field
+    end.any?
   end
 end

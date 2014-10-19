@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006155230) do
+ActiveRecord::Schema.define(version: 20141019080045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 20141006155230) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "membership_status"
-    t.string   "membership_level"
     t.datetime "membership_renewal_date"
     t.integer  "nexudus_id"
     t.integer  "membership_level_id"

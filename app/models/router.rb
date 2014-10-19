@@ -70,8 +70,10 @@ class Router
   end
 
   def ssh(script, argument)
-    Net::SSH.start(@host, @username, password: @password) do |ssh|
-      output = ssh.exec!("#{script} #{argument}")
+    unless Rails.env.to_sym == :test
+      Net::SSH.start(@host, @username, password: @password) do |ssh|
+        output = ssh.exec!("#{script} #{argument}")
+      end
     end
   end
 end
