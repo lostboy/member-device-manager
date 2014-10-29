@@ -33,7 +33,7 @@
             <li ng-if="!isCollapsed" ng-repeat="item in menuItems" ui-sref="{{ item.state }}" ui-sref-active="active">
               <a>{{ item.text }}</a>
             </li>
-            <li><a>Help</a></li>
+            <li><%= link_to "Logout", destroy_admin_user_session_url, method: :delete %></li>
           </ul>
         </div>
 
@@ -49,6 +49,10 @@
               <a>{{ item.text }}</a>
             </li>
           </ul>
+
+          <div class="user">
+            <p>Logged in as:<br><span><%= current_admin_user.name %></span></p>
+          </div>
         </div>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
