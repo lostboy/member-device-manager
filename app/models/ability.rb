@@ -2,16 +2,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    # Visitors must be signed to do anything at all
+    return if user.nil?
 
-    # Any admin user
-    if user.present?
+    if user.manager?
       can :read, ActiveAdmin::Page, name: "Dashboard"
     end
 
     # Superadmins
-    can :manage, :all if user.superadmin?
-
-    # Editors
-    #can :manage, Article if user.editor?
+    if user.superadmin?
+      can :manage, :all
+    end
   end
 end
