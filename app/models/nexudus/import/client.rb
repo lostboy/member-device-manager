@@ -7,7 +7,12 @@ class Nexudus::Import::Client
   default_timeout 30
 
   def initialize
-    @params = {}
+    @params = {
+      basic_auth: {
+        username: Rails.application.secrets.nexudus_username,
+        password: Rails.application.secrets.nexudus_password
+      }
+    }
   end
 
   def resources
