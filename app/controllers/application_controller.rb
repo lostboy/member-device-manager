@@ -6,4 +6,9 @@ class ApplicationController < ActionController::Base
   def access_denied(error)
     redirect_to root_url, alert: error.message
   end
+
+  # Configure paper_trail's function to retrieve user info
+  def user_for_paper_trail
+    current_admin_user.try(:id)
+  end
 end

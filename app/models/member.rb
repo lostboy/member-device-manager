@@ -1,4 +1,6 @@
 class Member < ActiveRecord::Base
+  has_paper_trail
+
   ROUTER_FIELDS = [
     :first_name,
     :last_name,
