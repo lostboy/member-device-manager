@@ -316,7 +316,7 @@ DEPENDENCIES
   as_csv
   better_errors
   binding_of_caller
-  bourbon (~> 3.0)
+  bourbon
   cancan
   clockwork
   coffee-rails (~> 4.0)

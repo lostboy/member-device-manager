@@ -76,7 +76,7 @@ gem 'devise'
 gem 'cancan'
 
 # A comprehensive framework of Sass mixins
-gem 'bourbon', '~> 3.0'
+gem 'bourbon'
 
 # A scheduler process
 gem 'clockwork'
