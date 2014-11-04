@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Devices::TypesController, type: :controller do
+  before { sign_in(create :admin) }
+
   describe 'GET #index' do
     it 'responds succesfully' do
       get :index, format: :json
