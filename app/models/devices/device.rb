@@ -1,4 +1,6 @@
 class Devices::Device < ActiveRecord::Base
+  has_paper_trail
+
   ROUTER_FIELDS = [
     :kind,
     :mac_address,

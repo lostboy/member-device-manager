@@ -30,6 +30,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # addresses both powerful and simple.
 gem 'ipaddress', github: 'bluemonk/ipaddress'
 
+# Track changes to your models' data.
+gem 'paper_trail', '~> 3.0'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
