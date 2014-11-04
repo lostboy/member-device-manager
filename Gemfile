@@ -12,19 +12,19 @@ gem 'pg'
 gem 'httparty'
 
 # Net::SSH: a pure-Ruby implementation of the SSH2 client protocol.
-gem 'net-ssh', '~> 2.9.1'
+gem 'net-ssh', '~> 2.9'
 
 # Instant CSV support for Rails
 gem 'as_csv'
 
 # Sass adapter for the Rails asset pipeline
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 4.0'
 
 # Minifies JavaScript files
 gem 'uglifier', '>= 1.3.0'
 
 # CoffeeScript adapter for the Rails asset pipeline
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0'
 
 # IPAddress is a Ruby library designed to make manipulation of IPv4 and IPv6
 # addresses both powerful and simple.
@@ -76,7 +76,7 @@ gem 'devise'
 gem 'cancan'
 
 # A comprehensive framework of Sass mixins
-gem 'bourbon'
+gem 'bourbon', '~> 3.0'
 
 # A scheduler process
 gem 'clockwork'
@@ -103,7 +103,7 @@ group :test, :development do
   gem 'whiny_validation'
 
   # RSpec for Rails
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails', '~> 3.0'
 
   # RSpec command for Spring
   gem 'spring-commands-rspec'
