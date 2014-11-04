@@ -1,5 +1,7 @@
 common: &common
   DATABASE_USERNAME: <%= ENV["USER"] %>
+  NEXUDUS_USERNAME: username
+  NEXUDUS_PASSWORD: password
 
 test:
   <<: *common
