@@ -39,6 +39,28 @@ describe Devices::Device do
     end
   end
 
+  describe "enable!" do
+    before do
+      subject.enabled = false
+      subject.save!
+    end
+
+    it "disables the device" do
+      expect { subject.enable! }.to change(device, :enabled).from(false).to(true)
+    end
+  end
+
+  describe "enable!" do
+    before do
+      subject.enabled = true
+      subject.save!
+    end
+
+    it "disables the device" do
+      expect { subject.disable! }.to change(device, :enabled).from(true).to(false)
+    end
+  end
+
   describe 'before_create' do
     context 'belongs to hsv1-mem' do
       let(:type) { create :devices_type, hotspot: 'hsv1-mem' }

@@ -58,6 +58,16 @@ class Devices::Device < ActiveRecord::Base
     save!
   end
 
+  def enable!
+    self.enabled = true
+    save!
+  end
+
+  def disable!
+    self.enabled = false
+    save!
+  end
+
   # Update router with new device information
   #
   # If we have detected that the enabled field has changed, and only that
