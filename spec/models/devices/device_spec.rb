@@ -23,6 +23,22 @@ describe Devices::Device do
     end
   end
 
+  describe '#enabled?' do
+    it 'should return enabled state' do
+      expect(subject.enabled?).to be(true)
+    end
+
+    context 'disabled' do
+      before do
+        subject.enabled = false
+      end
+
+      it 'should return enabled state' do
+        expect(subject.enabled?).to be(false)
+      end
+    end
+  end
+
   describe 'before_create' do
     context 'belongs to hsv1-mem' do
       let(:type) { create :devices_type, hotspot: 'hsv1-mem' }
@@ -155,6 +171,31 @@ describe Devices::Device do
       end
     end
 
+    context "only enabled changed" do
+      context 'disabled' do
+        before do
+          device.save!
+          device.enabled = false
+        end
+
+        it "it sets @enabled_changed to be true" do
+          expect{ device.save! }.to change{ device.instance_variable_get(:@enabled_changed) }.from(false).to(true)
+        end
+      end
+
+      context 'enabled' do
+        before do
+          device.enabled = false
+          device.save!
+          device.enabled = true
+        end
+
+        it "it sets @enabled_changed to be true" do
+          expect{ device.save! }.to change{ device.instance_variable_get(:@enabled_changed) }.from(false).to(true)
+        end
+      end
+    end
+
     context "noting has changed" do
       before { device.save! }
       it "determines if any of the router fields changed" do
@@ -180,17 +221,25 @@ describe Devices::Device do
       device.update_router
     end
 
-    context "with disable" do
-      it 'disables the device' do
-        expect_any_instance_of(Router).to receive(:disable).with(device)
-        device.update_router disable: true
-      end
-    end
+    context "@enabled_changed is true" do
+      before { device.instance_variable_set(:@enabled_changed, true) }
 
-    context "with enable" do
-      it 'enables the device' do
-        expect_any_instance_of(Router).to receive(:enable).with(device)
-        device.update_router enable: true
+      context 'enabled is true' do
+        before { device.enabled = true }
+
+        it 'enables the device' do
+          expect_any_instance_of(Router).to receive(:enable).with(device)
+          device.update_router
+        end
+      end
+
+      context 'enabled is false' do
+        before { device.enabled = false }
+
+        it 'disables the device' do
+          expect_any_instance_of(Router).to receive(:disable).with(device)
+          device.update_router
+        end
       end
     end
   end
