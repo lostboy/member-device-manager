@@ -43,6 +43,44 @@ describe Member do
       end
     end
 
+    context "only active changed" do
+      context 'inactive' do
+        before do
+          member.active = true
+          member.save!
+          member.active = false
+        end
+
+        it "it sets @active_changed to be true" do
+          expect{ member.save! }.to change{ member.instance_variable_get(:@active_changed) }.from(nil).to(true)
+        end
+      end
+
+      context 'active' do
+        before do
+          member.active = false
+          member.save!
+          member.active = true
+        end
+
+        it "it sets @active_changed to be true" do
+          expect{ member.save! }.to change{ member.instance_variable_get(:@active_changed) }.from(nil).to(true)
+        end
+      end
+    end
+
+    context "active didn't change" do
+      before do
+        member.active = false
+        member.save!
+        member.active = false
+      end
+
+      it "it sets @active_changed to be false" do
+        expect{ member.save! }.to change{ member.instance_variable_get(:@active_changed) }.from(nil).to(false)
+      end
+    end
+
     context "noting has changed" do
       before { member.save! }
       it "determines if any of the router fields changed" do
@@ -55,11 +93,32 @@ describe Member do
     let!(:member) { create :member }
     let!(:device) { create :device, member: member }
 
-    before do
-      allow(member).to receive(:router_fields_changed?).and_return(true)
+    context "@active_changed is true" do
+      before { member.instance_variable_set(:@active_changed, true) }
+
+      context "active" do
+        before { member.active = true }
+
+        it "enables the devices" do
+          expect_any_instance_of(Devices::Device).to receive(:enable!)
+          member.update_router
+        end
+      end
+
+      context "inactive" do
+        before { member.active = false }
+
+        it "disables the devices" do
+          expect_any_instance_of(Devices::Device).to receive(:disable!)
+          member.update_router
+        end
+      end
     end
 
-    it "updates the router"
+    it "updates the router" do
+      expect_any_instance_of(Devices::Device).to receive(:update_router)
+      member.update_router
+    end
   end
 
   describe "#after_update" do

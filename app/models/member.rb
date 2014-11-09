@@ -6,7 +6,8 @@ class Member < ActiveRecord::Base
     :last_name,
     :email,
     :membership_status,
-    :membership_level_id
+    :membership_level_id,
+    :active
   ]
 
   # We only want to do this on update, if we do it on create we will do it
@@ -43,13 +44,36 @@ class Member < ActiveRecord::Base
   end
 
   def update_router
+    # If we change the active state, we disable/enable the devices
+    # for the user, we don't delete them.
+    if @active_changed
+      if not self.active
+        method_name = :disable!
+      else self.active
+        method_name = :enable!
+      end
+    else
+      method_name = :update_router
+    end
+
     devices.each do |device|
-      device.update_router
+      device.send method_name
     end
   end
 
   def router_fields_changed?
     changed_fields = self.changed.map { |field| field.to_sym }
+
+    # Remove updated_at and created_at
+    changed_fields.delete :updated_at
+    changed_fields.delete :created_at
+
+    if active_changed? and changed_fields.length == 1
+      @active_changed = true
+    else
+      @active_changed = false
+    end
+
     ROUTER_FIELDS.map do |router_field|
       changed_fields.include? router_field
     end.any?
