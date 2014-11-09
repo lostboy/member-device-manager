@@ -57,9 +57,6 @@ gem 'hirb-unicode'
 # Roles have never been easier
 gem 'role_model'
 
-# Simple, Rails app configuration using a single YAML file
-gem 'figaro'
-
 # Simple, efficient background processing for Ruby
 gem 'sidekiq', '~> 3.0'
 
