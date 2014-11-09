@@ -2,13 +2,14 @@ require 'net/ssh'
 
 class Router
   SCRIPTS = {
-    add: 'manager.rt',
-    remove: 'manager.rt',
-    disable: 'devable.rt',
-    enable: 'devable.rt'
+    add: '/home/hubscr/bin/manager.rt',
+    remove: '/home/hubscr/bin/manager.rt',
+    disable: '/home/hubscr/bin/devable.rt',
+    enable: '/home/hubscr/bin/devable.rt'
   }
 
   ARGUMENTS_MAPPING = {
+    remove: '-r',
     enable: '-e',
     disable: '-d',
     show: '-s',
@@ -44,7 +45,7 @@ class Router
   end
 
   def unregister device
-    device_info = { mac_address: device.mac_address }
+    device_info = { mac_address: device.mac_address, remove: true }
     ssh(SCRIPTS[:remove], hash_to_arguments(device_info))
   end
 
@@ -79,7 +80,7 @@ class Router
 
   def ssh(script, arguments)
     unless Rails.env.to_sym == :test
-      Net::SSH.start(@host, port: @port, username: @username, password: @password) do |ssh|
+      Net::SSH.start(@hostname, @username, { password: @password, port: @port }) do |ssh|
         output = ssh.exec!("#{script} #{arguments}")
       end
     end
@@ -100,7 +101,17 @@ class Router
       arguments[mac_address_key] = arguments[mac_address_key].upcase
     end
 
+    # If the value is a boolean value, remove the value, e.g instead of
+    # `enable: true` becoming "-e true" it should be "-e" only
+    arguments = arguments.map do |arg|
+      value = arg[1]
+      if value == "true" or value == "false"
+        arg.pop
+      end
+      arg
+    end
+
     # Convert the hash into a string by joining key and value
-    arguments.map { |e| e.join(" ") }.join(" ")
+    arguments.map { |arg| arg.join(" ") }.join(" ")
   end
 end

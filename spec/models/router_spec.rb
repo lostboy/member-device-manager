@@ -17,17 +17,14 @@ describe Router do
       }
       arguments = router.hash_to_arguments device_info
 
-      expect(router).to receive(:ssh).with("manager.rt", arguments)
+      expect(router).to receive(:ssh).with("/home/hubscr/bin/manager.rt", arguments)
       router.register device
     end
   end
 
   describe "#unregister" do
     it 'unregisters the device with the router' do
-      device_info = { mac_address: device.mac_address }
-      arguments = router.hash_to_arguments device_info
-
-      expect(router).to receive(:ssh).with("manager.rt", arguments)
+      expect(router).to receive(:ssh).with("/home/hubscr/bin/manager.rt", "-m #{device.mac_address.upcase} -r")
       router.unregister device
     end
   end
@@ -42,20 +39,14 @@ describe Router do
 
   describe "#enable" do
     it 'enables the device in the router' do
-      device_info = { mac_address: device.mac_address, enable: true }
-      arguments = router.hash_to_arguments device_info
-
-      expect(router).to receive(:ssh).with("devable.rt", arguments)
+      expect(router).to receive(:ssh).with("/home/hubscr/bin/devable.rt", "-m #{device.mac_address.upcase} -e")
       router.enable device
     end
   end
 
   describe "#disable" do
     it 'disables the device in the router' do
-      device_info = { mac_address: device.mac_address, disable: true }
-      arguments = router.hash_to_arguments device_info
-
-      expect(router).to receive(:ssh).with("devable.rt", arguments)
+      expect(router).to receive(:ssh).with("/home/hubscr/bin/devable.rt", "-m #{device.mac_address.upcase} -d")
       router.disable device
     end
   end
@@ -99,6 +90,17 @@ describe Router do
         }
         arguments = router.hash_to_arguments hash
         expect(arguments).to eq("-m B8:E8:56:0A:E8:AC")
+      end
+    end
+
+    context 'key with a boolan value' do
+      it 'converts a hash to the proper ssh arguments' do
+        hash = {
+          mac_address: 'B8:E8:56:0A:E8:AC',
+          remove: true
+        }
+        arguments = router.hash_to_arguments hash
+        expect(arguments).to eq("-m B8:E8:56:0A:E8:AC -r")
       end
     end
   end
