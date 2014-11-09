@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029085440) do
+ActiveRecord::Schema.define(version: 20141109075839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141029085440) do
     t.datetime "updated_at"
     t.integer  "member_id"
     t.inet     "ip_address"
+    t.boolean  "enabled",     default: true
   end
 
   add_index "devices_devices", ["mac_address"], name: "index_devices_devices_on_mac_address", using: :btree
