@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.0.0'
 
 # Ruby on Rails is a full-stack web framework
 gem 'rails', '~> 4.1.0'
