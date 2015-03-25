@@ -1,11 +1,11 @@
-module Nexudus::Jobs::Spaces
-  class Coworker
+module Nexudus::Billing
+  class Tariff
     include Sidekiq::Worker
 
     sidekiq_options queue: :nexudus, retry: true
 
     def perform
-      Nexudus::Import::Spaces::Coworker.instance.update
+      Nexudus::Billing::Tariff.instance.update
     end
   end
 end

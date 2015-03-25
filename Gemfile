@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.2'
 
 # Ruby on Rails is a full-stack web framework
 gem 'rails', '~> 4.1.0'
@@ -64,7 +64,7 @@ gem 'sidekiq', '~> 3.0'
 gem 'sinatra', require: false
 
 # The administration framework for Ruby on Rails
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', require: 'activeadmin', github: 'gregbell/active_admin'
 
 # Flexible authentication solution for Rails
 gem 'devise'

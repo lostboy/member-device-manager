@@ -49,6 +49,6 @@ class Nexudus::Import::Spaces::Coworker < Nexudus::Import::Resource
     #member.membership_renewal_date      = coworker['']
     member.membership_status            = coworker['Active']
     member.active                       = coworker['Active']
-    member.save!
+    member.save
   end
 end
