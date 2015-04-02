@@ -5,7 +5,7 @@ module Nexudus::Spaces
     sidekiq_options queue: :nexudus, retry: true
 
     def perform
-      Nexudus::Spaces::Coworker.instance.update
+      Nexudus::Import::Spaces::Coworker.instance.update
     end
   end
 end

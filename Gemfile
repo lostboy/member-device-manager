@@ -96,6 +96,8 @@ group :test, :development do
   # Rails application preloader
   gem 'spring'
 
+  gem 'foreman'
+
   # Writes validation error messages to the log
   gem 'whiny_validation'
 

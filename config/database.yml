@@ -17,3 +17,6 @@ test:
 production:
   <<: *defaults
   database: device-management-production
+  host: <%= Rails.application.secrets.database_host %>
+  username: <%= Rails.application.secrets.database_username %>
+  password: <%= Rails.application.secrets.database_password %>

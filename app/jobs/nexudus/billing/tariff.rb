@@ -5,7 +5,7 @@ module Nexudus::Billing
     sidekiq_options queue: :nexudus, retry: true
 
     def perform
-      Nexudus::Billing::Tariff.instance.update
+      Nexudus::Import::Billing::Tariff.instance.update
     end
   end
 end
