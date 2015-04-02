@@ -15,7 +15,7 @@ test:
   database: device-management-test
 
 production:
-  <<: *defaults
+  adapter: postgresql
   database: device-management-production
   host: <%= Rails.application.secrets.database_host %>
   username: <%= Rails.application.secrets.database_username %>
