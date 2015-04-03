@@ -1,7 +1,9 @@
 worker_processes 2
 timeout 30
 preload_app true
-listen ENV['PORT'] || '3000'
+
+#listen ENV['PORT'] || '3000'
+listen "/tmp/unicorn.sock", backlog: 64
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do
