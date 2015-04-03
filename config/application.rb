@@ -25,5 +25,6 @@ module DeviceManager
 
     # Add vendor/assets to the Sprockets path
     config.assets.paths << Rails.root.join('vendor', 'assets')
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
   end
 end
