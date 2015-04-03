@@ -1,9 +1,0 @@
-export NEXUDUS_USERNAME=username
-export NEXUDUS_PASSWORD=password
-
-export ROUTER_HOST=host
-export ROUTER_PORT=port
-export ROUTER_USERNAME=username
-export ROUTER_PASSWORD=password
-
-export PATH=bin:$PATH
