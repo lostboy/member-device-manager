@@ -19,6 +19,10 @@ class Devices::Device < ActiveRecord::Base
 
   after_save :update_router, if: :router_fields_changed?
 
+  def ip_address
+    self[:ip_address].to_s
+  end
+
   # Determine if we should manage the IP address of this device based
   # on which hotspot it belongs to.
   def manage_ip?
@@ -34,7 +38,7 @@ class Devices::Device < ActiveRecord::Base
   def membership_network
     network = try(:member).try(:membership_level).try(:network)
     # TODO: Do not hardcode default network
-    network ||= '10.10.8.0/22'
+    network ||= '10.10.10.0/24'
   end
 
   # Renew a devices IP address.
