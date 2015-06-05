@@ -34,7 +34,7 @@ class Devices::Device < ActiveRecord::Base
   def membership_network
     network = try(:member).try(:membership_level).try(:network)
     # TODO: Do not hardcode default network
-    network ||= '10.10.1.0/24'
+    network ||= '10.10.8.0/22'
   end
 
   # Renew a devices IP address.
