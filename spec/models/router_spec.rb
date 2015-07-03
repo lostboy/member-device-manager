@@ -12,7 +12,6 @@ describe Router do
         email: device.member.email,
         device_type: device.type.kind,
         mac_address: device.mac_address,
-        ip_address: device.ip_address,
         hotspot: device.type.hotspot
       }
       arguments = router.hash_to_arguments device_info
@@ -64,11 +63,10 @@ describe Router do
           email: 'user@test.com',
           device_type: 'PC',
           mac_address: 'B8:E8:56:0A:E8:AC',
-          ip_address: '10.10.10.110',
           hotspot: 'hsv1-mem'
         }
         arguments = router.hash_to_arguments hash
-        expect(arguments).to eq("-f mark -l testlast -e user@test.com -t pc -m B8:E8:56:0A:E8:AC -i 10.10.10.110 -h hsv1-mem")
+        expect(arguments).to eq("-f mark -l testlast -e user@test.com -t pc -m B8:E8:56:0A:E8:AC -h hsv1-mem")
       end
     end
 

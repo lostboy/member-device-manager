@@ -18,7 +18,6 @@ class Router
     email: '-e',
     device_type: '-t',
     mac_address: '-m',
-    ip_address: '-i',
     hotspot: '-h'
   }
 
@@ -36,7 +35,6 @@ class Router
       email: device.member.email,
       device_type: device.type.kind,
       mac_address: device.mac_address,
-      ip_address: device.ip_address,
       hotspot: device.type.hotspot
     }
     # TODO: Make sure everything is not nil
@@ -62,20 +60,6 @@ class Router
   def disable device
     device_info = { mac_address: device.mac_address, disable: true }
     ssh(SCRIPTS[:disable], hash_to_arguments(device_info))
-  end
-
-  def update_ip_address device
-    device_info = [
-      first_name: device.member.first_name,
-      last_name: device.member.last_name,
-      email: device.member.email,
-      device_type: device.type.kind,
-      mac_address: device.mac_address,
-      ip_address: device.ip_address,
-      hotspot: device.type.hotspot
-    ]
-
-    ssh(SCRIPTS[:dhcp], hash_to_arguments(device_info))
   end
 
   def ssh(script, arguments)

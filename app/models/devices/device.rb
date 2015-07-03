@@ -4,7 +4,6 @@ class Devices::Device < ActiveRecord::Base
   ROUTER_FIELDS = [
     :kind,
     :mac_address,
-    :ip_address,
     :enabled
   ]
 
@@ -15,52 +14,7 @@ class Devices::Device < ActiveRecord::Base
   validates :type, presence: true
   validates :mac_address, presence: true, mac_address: true
 
-  before_create :renew, if: :manage_ip?
-
   after_save :update_router, if: :router_fields_changed?
-
-  def ip_address
-    self[:ip_address].to_s
-  end
-
-  # Determine if we should manage the IP address of this device based
-  # on which hotspot it belongs to.
-  def manage_ip?
-    case type.hotspot
-    when 'hsv1-mem' then true
-    when 'hsv2-bam' then false
-    else false
-    end
-  end
-
-  # Determine which network this device should belong to based on the
-  # members membership level.
-  def membership_network
-    network = try(:member).try(:membership_level).try(:network)
-    # TODO: Do not hardcode default network
-    network ||= Rails.application.secrets.router_network
-  end
-
-  # Renew a devices IP address.
-  def renew
-    network = Network.new membership_network
-    self.ip_address = network.next
-  end
-
-  def renew!
-    renew
-    save!
-  end
-
-  # Release a device's IP address.
-  def release
-    self.ip_address = nil
-  end
-
-  def release!
-    release
-    save!
-  end
 
   def enable!
     self.enabled = true
