@@ -1,11 +1,12 @@
 require 'net/ssh'
 
 class Router
+  path = ENV['ROUTER_SCRIPTS_PATH'] || '/home/hubscr/bin'
   SCRIPTS = {
-    add: '/home/hubscr/bin/manager.rt',
-    remove: '/home/hubscr/bin/manager.rt',
-    disable: '/home/hubscr/bin/devable.rt',
-    enable: '/home/hubscr/bin/devable.rt'
+    add: "#{path}/manager.rt",
+    remove: "#{path}/manager.rt",
+    disable: "#{path}/devable.rt",
+    enable: "#{path}/devable.rt"
   }
 
   ARGUMENTS_MAPPING = {
@@ -39,12 +40,12 @@ class Router
     }
     # TODO: Make sure everything is not nil
 
-    ssh(SCRIPTS[:add], hash_to_arguments(device_info))
+    run(SCRIPTS[:add], hash_to_arguments(device_info))
   end
 
   def unregister device
     device_info = { mac_address: device.mac_address, remove: true }
-    ssh(SCRIPTS[:remove], hash_to_arguments(device_info))
+    run(SCRIPTS[:remove], hash_to_arguments(device_info))
   end
 
   def update device
@@ -54,12 +55,22 @@ class Router
 
   def enable device
     device_info = { mac_address: device.mac_address, enable: true }
-    ssh(SCRIPTS[:enable], hash_to_arguments(device_info))
+    run(SCRIPTS[:enable], hash_to_arguments(device_info))
   end
 
   def disable device
     device_info = { mac_address: device.mac_address, disable: true }
-    ssh(SCRIPTS[:disable], hash_to_arguments(device_info))
+    run(SCRIPTS[:disable], hash_to_arguments(device_info))
+  end
+
+  def run(script, arguments)
+    exec(script, arguments)
+  end
+
+  def exec(script, arguments)
+    unless Rails.env.to_sym == :test
+      output = `#{script} #{arguments}`
+    end
   end
 
   def ssh(script, arguments)
@@ -70,9 +81,9 @@ class Router
     end
   end
 
-  # Convert a hash to the proper ssh script argument
+  # Convert a hash to the proper script argument
   def hash_to_arguments hash
-    # Remap the hash, with the correct ssh arguments
+    # Remap the hash, with the correct run arguments
     arguments = Hash[hash.map { |k, v| [ARGUMENTS_MAPPING[k], v] }]
 
     # Remove blank values from hash
